@@ -80,3 +80,13 @@ def make_pizza(*toppings):
 
 make_pizza('peperoni')
 make_pizza('peperoni', 'green peppers')
+
+# NOTE: Довільні ключові аргументи
+def build_profile(first_name, last_name, **kwargs):
+    """Створенння словника"""
+    kwargs['firs_name'] = first_name
+    kwargs['last_name'] = last_name
+    return kwargs
+
+user_profile = build_profile('ihor', 'sereda', position='web developer')
+print(user_profile)

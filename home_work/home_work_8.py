@@ -9,7 +9,7 @@ display_message('stop')
 
 def favorite_book(book):
     """Виведення коментаря про улюблену книгу"""
-    print(f"One of my favorite books is {book.title()}")
+    print(f"\nOne of my favorite books is {book.title()}")
 
 favorite_book('Alice in Wonderland')
 
@@ -28,7 +28,7 @@ city_list.append({'city': 'chikago', 'country': 'usa'})
 
 def city_counry(city_name, counry_name):
     """Return format name"""
-    f_city_name = f"{city_name}, {counry_name}"
+    f_city_name = f"\n{city_name}, {counry_name}"
     return f_city_name.title()
 
 for value in city_list:
@@ -68,3 +68,11 @@ def send_messages(msg_list):
     return sent_messages
 
 print(send_messages(message_list))
+
+def make_booter(*args):
+    """Make a sandwich with the given items."""
+    print("\nI'll make you a great sandwich:")
+    for item in args:
+        print(f"  ...adding {item} to your sandwich.")
+
+make_booter('cheese', 'tomato', 'sausage')
