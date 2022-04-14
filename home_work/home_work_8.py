@@ -28,7 +28,7 @@ city_list.append({'city': 'chikago', 'country': 'usa'})
 
 def city_counry(city_name, counry_name):
     """Return format name"""
-    f_city_name = f"\n{city_name}, {counry_name}"
+    f_city_name = f"{city_name}, {counry_name}"
     return f_city_name.title()
 
 for value in city_list:
@@ -76,3 +76,14 @@ def make_booter(*args):
         print(f"  ...adding {item} to your sandwich.")
 
 make_booter('cheese', 'tomato', 'sausage')
+
+def save_car_info(producer, model, **kwargs):
+    """Make a dictionary representing a car."""
+    car_info = {'producer': producer, 'model': model}
+    for key, value in kwargs.items():
+        car_info['key'] = value
+        car_info['key'] = value
+    return car_info
+
+car = save_car_info('subaru', 'outback', color='blue', tow_package=True)
+print(car)

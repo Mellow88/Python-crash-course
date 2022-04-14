@@ -1,5 +1,8 @@
 """Функції"""
 
+# NOTE: Для імпорту модуля додаємо файл
+# Додаємо файл пустий з іменем '__init__.py' в каталог де зберігається модуль
+from module import module_8
 
 def greet_user(username):
     """Показати просте вітання"""
@@ -90,3 +93,5 @@ def build_profile(first_name, last_name, **kwargs):
 
 user_profile = build_profile('ihor', 'sereda', position='web developer')
 print(user_profile)
+
+module_8.make_pizza(15, 'peperoni')
