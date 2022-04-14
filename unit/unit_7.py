@@ -27,19 +27,19 @@ while current_number <= 5:
 promt = '\nTell me something about for you:'
 promt += "\tEnter 'quit' to end program "
 
-active = True
+ACTIVE = True
 
-while active:
+while ACTIVE:
     message = input(promt)
     if message == 'quit':
-        active = False
+        ACTIVE = False
         # NOTE: Вихід з циклу
         # break
     else:
         print(message)
 
-# Почати з користувачів, яких треба перевірити,
-# та порожнього списку підтверджених користувачів
+# NOTE: Почати з користувачів, яких треба перевірити,
+# NOTE: та порожнього списку підтверджених користувачів
 uncormfirmed_users = ['jonni', 'paolo', 'teddy']
 confirmed_users = []
 
