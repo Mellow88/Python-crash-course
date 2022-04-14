@@ -48,3 +48,23 @@ def make_album(singer, album_name, songs_count=None):
 for value in range(0,3):
     album_ = make_album('Jimmy', 'World', 24)
     print(album_)
+
+message_list = ['Hello!', 'What are you doing ?', 'Bye!']
+
+def show_message(msg_list):
+    """show message for user"""
+    for message in msg_list:
+        print(message)
+
+show_message(message_list)
+
+def send_messages(msg_list):
+    """show message for user"""
+    sent_messages = []
+    while msg_list:
+        current_msg = msg_list.pop()
+        print(f"Printing message: {current_msg}")
+        sent_messages.append(current_msg)
+    return sent_messages
+
+print(send_messages(message_list))
