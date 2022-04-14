@@ -47,20 +47,20 @@ def greet_users(names):
         msg = f"Hello {name.title()}"
         print(msg)
 
-username = ['ihor', 'nataly', 'olha']
-greet_users(username)
+usernames = ['ihor', 'nataly', 'olha']
+greet_users(usernames)
 
 models_uncomleted = ['model_1', 'model_2', 'model_3']
 models_completed = []
 
-def print_models(models_uncomleted, models_completed):
+def print_models(models_uncom, models_comp):
     """Друк поточного креслення
        Перенесення моделы після друку
     """
-    while models_uncomleted:
-        current_model = models_uncomleted.pop()
+    while models_uncom:
+        current_model = models_uncom.pop()
         print(f"Printing model: {current_model}")
-        models_completed.append(current_model)
+        models_comp.append(current_model)
 
 def show_models(models):
     """sss"""
@@ -69,3 +69,14 @@ def show_models(models):
 
 print_models(models_uncomleted, models_completed)
 show_models(models_completed)
+
+# NOTE: Передавання довільної кількості аргументів у функцію
+def make_pizza(*toppings):
+    """Складання списку замовлених інградієнтів"""
+    print(f"\nMaking a pizza with folllowing toppings: {toppings}")
+    for topping in toppings:
+        print('\t' + topping)
+
+
+make_pizza('peperoni')
+make_pizza('peperoni', 'green peppers')
