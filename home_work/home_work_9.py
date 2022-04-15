@@ -32,3 +32,4 @@ res_list.append({'r_name': 'Star', 'r_type': 'small'})
 for i in res_list:
     new_rest = Restaurant(i['r_name'], i['r_type'])
     print(new_rest.res_name)
+    print(new_rest.res_type)
