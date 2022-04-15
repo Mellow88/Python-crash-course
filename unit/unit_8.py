@@ -66,7 +66,7 @@ def print_models(models_uncom, models_comp):
         models_comp.append(current_model)
 
 def show_models(models):
-    """sss"""
+    """Друк готових моделей виробів"""
     for model in models:
         print(f"Completed model: {model}")
 
