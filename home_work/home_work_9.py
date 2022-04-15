@@ -33,14 +33,25 @@ for i in res_list:
     new_rest = Restaurant(i['r_name'], i['r_type'])
     print(new_rest.res_name)
     print(new_rest.res_type)
-    
+
+
 class User:
+    """Моделювання класу User."""
+
     def __init__(self, first_name, last_name):
         self.first_name = first_name
         self.last_name = last_name
-        
+
     def describe_user(self):
         """Опис найменування та типу user"""
-        print(f"First name - {self.first_name.title()}!")
-        print(f"Last name {self.last_name.title()} ") 
+        print(f"First name - {self.first_name.title()}")
+        print(f"Last name {self.last_name.title()} ")
 
+    def greet_user(self):
+        """Привітання user"""
+        print(f"Hello friend - {self.first_name.title()}")
+
+
+user_i = User('ihor', 'sereda')
+user_i.describe_user()
+user_i.greet_user()
