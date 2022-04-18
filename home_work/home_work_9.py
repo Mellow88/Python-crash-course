@@ -92,3 +92,45 @@ user_i.greet_user()
 
 user_i.reset_login_attemts()
 user_i.describe_user()
+
+class IceCreamStand(Restaurant):
+    """Моделювання дочірнього класу IceCream."""
+
+    def __init__(self, res_name, res_type):
+        super().__init__(res_name, res_type)
+        self.flavors = []
+
+    def show_flavors(self):
+        """Виведення складових інградієнтів
+           морозива
+        """
+        for flavor in self.flavors:
+            print(f"This icecream consist of {flavor}")
+
+
+new_icecream = IceCreamStand('Big bob', 'small')
+new_icecream.flavors = ['vanills', 'chocolate', 'cherry']
+new_icecream.show_flavors()
+new_icecream.describe_restaurant()
+
+class Admin(User):
+    """Моделювання дочірнього класу Admin."""
+
+    def __init__(self, first_name, last_name):
+        super().__init__(first_name, last_name)
+
+        privileges_list = []
+        privileges_list.append('can add post')
+        privileges_list.append('can delete post')
+        privileges_list.append('can ban user')
+
+        self.privileges = privileges_list
+
+    def show_privileges(self):
+        """ddd"""
+        for value in self.privileges:
+            print(f"Privilage - {value}")
+
+new_user = Admin('nataly', 'sereda')
+new_user.describe_user()
+new_user.show_privileges()
