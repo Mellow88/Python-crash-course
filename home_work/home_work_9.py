@@ -14,7 +14,7 @@ class Restaurant:
         print(f"Type {self.res_type} ")
 
     def read_number_served(self):
-        """Виведення кылькосты наявних місць"""
+        """Виведення кількості наявних місць"""
         print(f"Number served = {self.res_number_served}")
 
     def open_restaurant(self):
@@ -64,17 +64,31 @@ class User:
     def __init__(self, first_name, last_name):
         self.first_name = first_name
         self.last_name = last_name
+        self.login_attempts = 0
 
     def describe_user(self):
         """Опис найменування та типу user"""
         print(f"First name - {self.first_name.title()}")
-        print(f"Last name {self.last_name.title()} ")
+        print(f"Last name - {self.last_name.title()} ")
+        print(f"Login attempts = {self.login_attempts} ")
 
     def greet_user(self):
         """Привітання user"""
         print(f"Hello friend - {self.first_name.title()}")
 
+    def increment_login_attemts(self):
+        """Збільшення кількості спроб авторизації"""
+        self.login_attempts += 1
+
+    def reset_login_attemts(self):
+        """Обнулення кількості спроб авторизації"""
+        self.login_attempts = 0
+
 
 user_i = User('ihor', 'sereda')
+user_i.increment_login_attemts()
 user_i.describe_user()
 user_i.greet_user()
+
+user_i.reset_login_attemts()
+user_i.describe_user()
