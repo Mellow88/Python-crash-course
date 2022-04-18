@@ -117,20 +117,30 @@ class Admin(User):
     """Моделювання дочірнього класу Admin."""
 
     def __init__(self, first_name, last_name):
+        """Initialize the admin."""
         super().__init__(first_name, last_name)
+        self.privileges = Privileges()
 
-        privileges_list = []
-        privileges_list.append('can add post')
-        privileges_list.append('can delete post')
-        privileges_list.append('can ban user')
+class Privileges:
+    """A class to store an admin's privileges."""
 
-        self.privileges = privileges_list
+    def __init__(self, privileges=[]):
+        self.privileges = privileges
 
     def show_privileges(self):
-        """ddd"""
-        for value in self.privileges:
-            print(f"Privilage - {value}")
+        """Виведення усіх додаткових прав адміністратора"""
+        if self.privileges:
+            for value in self.privileges:
+                print(f"Privilage - {value}")
+        else:
+            print("- This user has no privileges.")
+
+user_privileges = []
+user_privileges.append('can reset passwords')
+user_privileges.append('can moderate discussions')
+user_privileges.append('can suspend accounts')
 
 new_user = Admin('nataly', 'sereda')
 new_user.describe_user()
-new_user.show_privileges()
+new_user.privileges.privileges = user_privileges
+new_user.privileges.show_privileges()
