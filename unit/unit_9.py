@@ -58,6 +58,11 @@ class Car:
         else:
             self.odometr += miles
 
+    def fill_gas_tank(self):
+        """Виведення повідомлення про заповнення баку"""
+        print("Gas tank is full")
+
+
 new_car = Car('audi', 'a4', 2019)
 new_car.get_name()
 
@@ -76,13 +81,48 @@ class ElectricCar(Car):
            Тоді ініціалізація атрибутів електрокара
         """
         super().__init__(make, model, year)
-        self.battery_size = 75
+        self.battery_size = Battery()
+
+    # def describe_barttery(self):
+    #     """Виведення повідомлення про розмір акумулятора"""
+    #     print(f"This car has a {self.battery_size}-kWh battery")
+
+    # NOTE: Перевизначення методів батьківського класу
+    def fill_gas_tank(self):
+        """Електрокари не мають баків"""
+        print('This car does not need a gas tank')
+
+class Battery:
+    """docstring for Battery."""
+
+    def __init__(self, battery_size=75):
+        """Ініціалізація атрибутів акумулятора"""
+        self.battery_size = battery_size
 
     def describe_barttery(self):
         """Виведення повідомлення про розмір акумулятора"""
         print(f"This car has a {self.battery_size}-kWh battery")
 
+    def get_range(self):
+        """
+        Виведення повідомлення про відстань,
+        яку може проїхати авто відповідно
+        до ємкості акумулятора
+        """
+        # car_range = 0
+        if self.battery_size == 75:
+            car_range = 260
+        elif self.battery_size == 100:
+            car_range = 315
+
+        print(f"This car can go about {car_range} miles on a full charge")
+
+
 my_tesla = ElectricCar('tesla', 'model s', 2019)
 my_tesla.odometr = 200
 print(my_tesla.get_name())
-my_tesla.describe_barttery()
+my_tesla.battery_size.describe_barttery()
+my_tesla.battery_size.get_range()
+
+new_car.fill_gas_tank()
+my_tesla.fill_gas_tank()
