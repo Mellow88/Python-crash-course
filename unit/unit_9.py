@@ -37,7 +37,8 @@ class Car:
 
     def get_name(self):
         """Return format car name"""
-        print(f"{self.year} {self.make} {self.model}")
+        long_name = f"{self.year} {self.make} {self.model}"
+        return long_name
 
     def read_odometr(self):
         """Read car odometr"""
@@ -52,7 +53,10 @@ class Car:
 
     def increment_odometr(self, miles):
         """Додати задане значення до показника одометру"""
-        self.odometr += miles
+        if miles < 0:
+            print('Can not roll back an odometr!')
+        else:
+            self.odometr += miles
 
 new_car = Car('audi', 'a4', 2019)
 new_car.get_name()
@@ -62,3 +66,23 @@ new_car.odometr = 34
 new_car.update_odometr(56)
 new_car.increment_odometr(10)
 new_car.read_odometr()
+
+# NOTE: Успадкування класів
+class ElectricCar(Car):
+    """Моделювання класу ElectricCar."""
+
+    def __init__(self, make, model, year):
+        """Ініціалізація атрибутів що описують клас
+           Тоді ініціалізація атрибутів електрокара
+        """
+        super().__init__(make, model, year)
+        self.battery_size = 75
+
+    def describe_barttery(self):
+        """Виведення повідомлення про розмір акумулятора"""
+        print(f"This car has a {self.battery_size}-kWh battery")
+
+my_tesla = ElectricCar('tesla', 'model s', 2019)
+my_tesla.odometr = 200
+print(my_tesla.get_name())
+my_tesla.describe_barttery()
