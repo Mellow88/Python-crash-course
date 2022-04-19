@@ -1,5 +1,13 @@
 """Класи"""
 
+from random import choice
+from module import module_9
+
+players = ['Martina', 'Nataly', 'Jonny']
+random_player = choice(players)
+
+print(random_player)
+
 # NOTE: Створення та використанння класу
 class Dog:
     """Проста спроба змоделювати собаку"""
@@ -135,3 +143,7 @@ my_tesla.battery_size.get_range()
 
 new_car.fill_gas_tank()
 my_tesla.fill_gas_tank()
+
+# NOTE: Імпортування класів з окремого модуля
+my_car = module_9.Car('audi', 'a4', 2010)
+print(my_car.get_name())
