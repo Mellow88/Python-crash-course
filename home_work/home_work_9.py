@@ -1,5 +1,8 @@
 """HW_9"""
 
+import random
+import string
+
 class Restaurant:
     """Моделювання класу Restaurant."""
 
@@ -144,3 +147,58 @@ new_user = Admin('nataly', 'sereda')
 new_user.describe_user()
 new_user.privileges.privileges = user_privileges
 new_user.privileges.show_privileges()
+
+class Die:
+    """docstring for Die."""
+
+    def __init__(self, sides=6):
+        """Initialize the die."""
+        self.sides = sides
+
+    def roll_die(self):
+        """Return random number"""
+        random_number = random.randint(1, self.sides)
+        return random_number
+
+d10 = Die()
+
+results = []
+for roll_num in range(10):
+    result = d10.roll_die()
+    results.append(result)
+print("\n10 rolls of a 10-sided die:")
+print(results)
+
+def get_winner_ticket(count_num=10, count_let=5, count_winner=4):
+    """vvxcv"""
+    winner_ticket = []
+    num = [random.randint(1, count_num) for i in range(1, count_num+1)]
+    lit = [random.choice(string.ascii_lowercase) for i in range(1, count_let+1)]
+    random_list = num + lit
+    for value in range(count_winner):
+        winner_ticket.append(random.choice(random_list))
+    return winner_ticket
+
+played_ticket = [1, 2, 3, 4]
+winning_ticket = get_winner_ticket()
+
+def check_ticket(play_ticket, win_ticket):
+    """Check played_ticket """
+    if play_ticket != win_ticket:
+        return False
+    return True
+
+def get_counts(play_ticket):
+    """csdfsd"""
+    counts = 0
+    won = False
+    while not won:
+        win_ticket = get_winner_ticket()
+        won = check_ticket(play_ticket, win_ticket)
+        if won:
+            break
+        counts += 1
+    return counts
+
+
+print(get_counts(played_ticket))
