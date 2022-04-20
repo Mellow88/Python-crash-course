@@ -47,4 +47,4 @@ print(f"{pi_string[:52]}...")
 print(len(pi_string))
 
 if '120372' in pi_string:
-    print('yes')
+    print('no')
