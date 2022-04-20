@@ -26,6 +26,9 @@ for line in lines:
 
 print('\t')
 
+
+print('\t')
+
 def get_user_name():
     """Get user_name"""
     user_name = input('Enter your name: ')
@@ -42,3 +45,21 @@ def write_user_info(user, ref='text_files/guest_book.txt'):
 
 new_user = get_user_name()
 write_user_info(new_user)
+
+print('\t')
+
+def get_sum_numbers():
+    """Return sum"""
+    point_break = True
+    while point_break:
+        num_1 = input('Enter num 1: ')
+        num_2 = input('Enter num 2: ')
+        try:
+            sum_num = int(num_1) + int(num_2)
+            point_break = False
+        except ValueError:
+            print('Value error!')
+        else:
+            print(f"sum = {sum_num}")
+
+get_sum_numbers()
