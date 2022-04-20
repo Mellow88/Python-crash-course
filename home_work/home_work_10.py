@@ -21,4 +21,5 @@ with open(file_name, encoding="utf8") as file_object:
     lines = file_object.readlines()
 
 for line in lines:
-    print(line.rstrip())
+    edit_line = line.replace('Python','Java').rstrip()
+    print(edit_line)
