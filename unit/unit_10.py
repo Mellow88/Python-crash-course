@@ -48,3 +48,17 @@ print(len(pi_string))
 
 if '120372' in pi_string:
     print('yes')
+
+# NOTE: Запис у файл
+# NOTE: При записі даних у файл, дані перезаписуються
+file_name = 'text_files/programming.txt'
+
+with open(file_name, 'w', encoding="utf8") as file_object:
+    file_object.write('I love python!\n')
+    file_object.write('Add record\n')
+
+print('\t')
+
+# NOTE: Додавання у файл нової інформації
+with open(file_name, 'a', encoding="utf8") as file_object:
+    file_object.write('I also love C++')
