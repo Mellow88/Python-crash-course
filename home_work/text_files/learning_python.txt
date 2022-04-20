@@ -1,0 +1,5 @@
+In Python you can: declare variables
+In Python you can: create and changes lists
+In Python you can: create and changes tuples
+In Python you can: write cycles
+In Python you can: write functions
