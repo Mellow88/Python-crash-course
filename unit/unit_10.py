@@ -1,5 +1,6 @@
 """Файли та винятки"""
 
+import json
 
 # NOTE: Читання з файлу
 file_name = 'text_files/pi_digits.txt'
@@ -99,3 +100,47 @@ else:
     words = contents.split()
     num_words = len(words)
     print(f"The file {file_name} has about {num_words} words.")
+
+# NOTE: Зберігання даних у формат  JSON
+file_name = 'text_files/numbers.json'
+numbers = [1, 2, 2, 3, 23, 432]
+
+with open(file_name, 'w', encoding="utf8") as f:
+    json.dump(numbers, f)
+
+# NOTE: Зчитування даних JSON
+with open(file_name, encoding="utf8") as f:
+    num_list = json.load(f)
+
+print(num_list)
+
+# NOTE: Збереження та читання користувацьких даних
+def get_stored_username():
+    """Get stored username if available."""
+    filename = 'text_files/username.json'
+    try:
+        with open(filename) as f:
+            username = json.load(f)
+    except FileNotFoundError:
+        return None
+    else:
+        return username
+
+def get_new_username():
+    """Prompt for a new username."""
+    username = input("What is your name? ")
+    filename = 'text_files/username.json'
+    with open(filename, 'w') as f:
+        json.dump(username, f)
+    return username
+
+def greet_user():
+    """Greet the user by name."""
+    username = get_stored_username()
+    if username:
+        print(f"Welcome back, {username}!")
+    else:
+        username = get_new_username()
+        print(f"We'll remember you when you come back, {username}!")
+
+greet_user()
