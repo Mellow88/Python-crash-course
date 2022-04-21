@@ -1,5 +1,7 @@
 """HW_10"""
 
+import json
+
 # NOTE: Читання з файлу
 file_name = 'text_files/learning_python.txt'
 
@@ -66,7 +68,7 @@ get_sum_numbers()
 
 def update_file(file_ref, file_text=''):
     """Додавання у файл нової інформації"""
-    with open(file_ref, 'a', encoding="utf8") as file_object:
+    with open(file_ref, 'w', encoding="utf8") as file_object:
         if file_text != '':
             file_object.write(file_text+ '\n')
         else:
@@ -89,4 +91,23 @@ for filename in filenames:
             contents = f.read()
             print(contents)
     except FileNotFoundError:
-        print("  Sorry, I can't find that file.")
+        print("Sorry, I can't find that file.")
+
+def get_favorite_number(user_name):
+    """Get favorite user number"""
+    # user_info = {user_name: user_numb,}
+    try:
+        with open('text_files/favorite_number.json', encoding="utf8") as file:
+            user_info = json.load(file)
+    except FileNotFoundError:
+        return None
+    else:
+        return user_info[user_name]
+
+def get_username():
+    """Prompt for a new user number."""
+    user_name = input("What is your name? ")
+    return user_name
+
+tyty = get_favorite_number(get_username())
+print(tyty)
