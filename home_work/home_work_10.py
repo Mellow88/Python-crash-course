@@ -109,5 +109,5 @@ def get_username():
     user_name = input("What is your name? ")
     return user_name
 
-tyty = get_favorite_number(get_username())
-print(tyty)
+number = get_favorite_number(get_username())
+print(f"I know your favorite number! It's {number}.")
