@@ -63,3 +63,30 @@ def get_sum_numbers():
             print(f"sum = {sum_num}")
 
 get_sum_numbers()
+
+def update_file(file_ref, file_text=''):
+    """Додавання у файл нової інформації"""
+    with open(file_ref, 'a', encoding="utf8") as file_object:
+        if file_text != '':
+            file_object.write(file_text+ '\n')
+        else:
+            print('Enter text!')
+
+update_file('text_files/cats.txt', 'cat Jonny')
+update_file('text_files/cats.txt', 'cat Jessi')
+update_file('text_files/cats.txt', 'cat Joie')
+
+update_file('text_files/dogs.txt', 'dog Jeisy')
+update_file('text_files/dogs.txt', 'dog Jeck')
+update_file('text_files/dogs.txt', 'dog Joster')
+
+filenames = ['text_files/cats.txt', 'text_files/dogs.txt']
+
+for filename in filenames:
+    print(f"\nReading file: {filename}")
+    try:
+        with open(filename) as f:
+            contents = f.read()
+            print(contents)
+    except FileNotFoundError:
+        print("  Sorry, I can't find that file.")
