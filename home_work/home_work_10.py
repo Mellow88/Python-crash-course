@@ -100,7 +100,7 @@ def get_favorite_number(user_name):
         with open('text_files/favorite_number.json', encoding="utf8") as file:
             user_info = json.load(file)
     except FileNotFoundError:
-        return None
+        return 0
     else:
         return user_info[user_name]
 
@@ -110,4 +110,10 @@ def get_username():
     return user_name
 
 number = get_favorite_number(get_username())
-print(f"I know your favorite number! It's {number}.")
+
+print(number)
+
+try:
+    print(f"I know your favorite number! It's {number}.")
+except ValueError:
+    print('Record was nor founded')
