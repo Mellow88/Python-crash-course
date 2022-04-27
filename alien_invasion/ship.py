@@ -24,3 +24,5 @@ class Ship():
     def blitme(self):
         """Намалювати корабель у його поточному розташуванні"""
         self.screen.blit(self.image, self.rect)
+
+print('test comment')
