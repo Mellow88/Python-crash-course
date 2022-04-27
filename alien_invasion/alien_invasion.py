@@ -19,19 +19,23 @@ class AlienIvasion:
 
         self.ship = Ship(self)
 
+    def _update_screen(self):
+        """Оновлення зображення на екрані"""
+        self.screen.fill(self.settings.bg_color)
+        self.ship.blitme()
+        pygame.display.flip()
+
+    def _check_events(self):
+        """Слідкування за подіями миші та клавіатури"""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+
     def run_game(self):
         """Початок головного циклу гри"""
         while True:
-            # NOTE: Слідкування за подіями миші та клавіатури
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-
-            self.screen.fill(self.settings.bg_color)
-            self.ship.blitme()
-
-            # NOTE: Останній намальований екран
-            pygame.display.flip()
+            self._check_events()
+            self._update_screen()
 
 
 if __name__ == '__main__':
