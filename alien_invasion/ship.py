@@ -23,23 +23,22 @@ class Ship():
         self.rect.midbottom = self.screen_rect.midbottom
 
         # NOTE: Збереження десяткового значення позиції корабля по горизонталі
-        self.x = float(self.rect.x )
+        self.x = float(self.rect.x)
 
         # NOTE: Індикатори руху
         self.moving_right = False
         self.moving_left = False
 
+        # self.moving_up = False
+        # self.moving_down = False
 
     def update(self):
         """
         Оновлення поточної позиції корабля на основі
         індикатора руху
         """
-        # if self.moving_right:
-        #     self.x += self.settings.ship_speed
-        # if self.moving_left:
-        #     self.x -= self.settings.ship_speed
 
+        
         if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.ship_speed
         if self.moving_left and self.rect.left > 0:
