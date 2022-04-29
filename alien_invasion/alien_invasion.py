@@ -1,10 +1,14 @@
 """Alien invasion"""
 
-import sys, pygame
+# pylint: disable=e1101
+
+import sys
+import pygame
 
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
+
 
 class AlienInvasion:
     """Загальний клас, що керує ресурсами та поведінкою гри."""
