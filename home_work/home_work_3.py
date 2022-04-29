@@ -1,7 +1,10 @@
 """HW_3"""
 
-guest_list = []
+# pylint: disable=C0103
 
+guest_absent = 'Ivan'
+
+guest_list = []
 guest_list.append('Alex')
 guest_list.append('Natali')
 guest_list.append('Ivan')
