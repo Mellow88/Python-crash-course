@@ -11,6 +11,7 @@ class Alien(Sprite):
         """Ініціалізація прибульця та його початкового положення"""
         super().__init__()
         self.screen = ai_game.screen
+        self.settings = ai_game.settings
 
         # NOTE: Завантаження зображення корабля
         image = pygame.image.load('images/alien_ship.bmp')
@@ -26,25 +27,14 @@ class Alien(Sprite):
         # NOTE: Збереження десяткового значення позиції корабля по горизонталі
         self.x = float(self.rect.x)
 
-    #     # NOTE: Індикатори руху
-    #     self.moving_right = False
-    #     self.moving_left = False
-    #
-    #     # self.moving_up = False
-    #     # self.moving_down = False
-    #
-    # def update(self):
-    #     """
-    #     Оновлення поточної позиції корабля на основі
-    #     індикатора руху
-    #     """
-    #     if self.moving_right and self.rect.right < self.screen_rect.right:
-    #         self.x += self.settings.ship_speed
-    #     if self.moving_left and self.rect.left > 0:
-    #         self.x -= self.settings.ship_speed
-    #
-    #     self.rect.x = self.x
-    #
-    # def blitme(self):
-    #     """Намалювати корабель у його поточному розташуванні"""
-    #     self.screen.blit(self.image, self.rect)
+    def check_edges(self):
+        """"Перевірка на досягнення краю екрана"""
+        screen_rect = self.screen.get_rect()
+        if self.rect.right >= screen_rect.right or self.rect.left <= 0:
+            return True
+
+    def update(self):
+        """Зміщення космічного корабля прибульця"""
+        self.x += (self.settings.alien_speed *
+                  self.settings.fleet_direction)
+        self.rect.x = self.x
