@@ -4,12 +4,13 @@
 
 import sys
 import pygame
+from time import sleep
 
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
-
+from game_stats import GameStats
 
 class AlienInvasion:
     """Загальний клас, що керує ресурсами та поведінкою гри."""
@@ -23,6 +24,8 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
 
+        # NOTE: Створення екземпляру класу для збереження ігрової статистики
+        self.stats = GameStats(self)
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -88,7 +91,7 @@ class AlienInvasion:
         self._check_bullet_alien_collisions()
 
     def _check_bullet_alien_collisions(self):
-        """Реагування на зыткнення з кулями"""
+        """Реагування на зіткнення з кулями"""
         # NOTE: Перевірка чи котрась куля влучила в корабель прибульця
         # NOTE: Якщо куля влучила позбавляємось кулі і прибульця
         collisions = pygame.sprite.groupcollide(
@@ -145,19 +148,56 @@ class AlienInvasion:
             alien.rect.y += self.settings.fleet_drop_speed
         self.settings.fleet_direction *= -1
 
+    def _check_aliens_bottom(self):
+        """Перевірка чи прибулець не досяснуг нижньої частини екрану"""
+        screen_rect = self.screen.get_rect()
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= screen_rect.bottom:
+                # NOTE: Зреагувати так ніби корабель було підбито
+                self._ship_hit()
+                break
 
     def _update_aliens(self):
         """"Оновлення позицій космічних кораблів прибульців"""
         self._check_fleet_edges()
         self.aliens.update()
 
+        # NOTE: Перевірка зіткнення прибульців з кораблем
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            # print('Ship is hit!')
+            self._ship_hit()
+
+        # NOTE: Шукаємо прибульців що досягли краю екрану
+        self._check_aliens_bottom()
+
+    def _ship_hit(self):
+        """Реагування на зіткнення прибульців з кораблем"""
+        if self.stats.ships_left > 0:
+            # NOTE: Зменшуємо кількість кораблів
+            self.stats.ships_left -= 1
+
+            # NOTE: Прибираємо залишок куль та прибульців
+            self.aliens.empty()
+            self.bullets.empty()
+
+            # NOTE: Створення нового флоту та корабля
+            self._create_fleet()
+            self.ship.center_ship()
+
+            sleep(0.5)
+        else:
+            self.stats.game_active = False
+
     def run_game(self):
         """Початок головного циклу гри"""
         while True:
             self._check_events()
-            self.ship.update()
-            self._update_bullets()
-            self._update_aliens()
+
+            if self.stats.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self._update_aliens()
+
             self._update_screen()
 
 

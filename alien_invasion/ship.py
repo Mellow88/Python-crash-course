@@ -32,6 +32,11 @@ class Ship():
         # self.moving_up = False
         # self.moving_down = False
 
+    def center_ship(self):
+        """ Створення нового корабля внизу по центру екрану"""
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)
+
     def update(self):
         """
         Оновлення поточної позиції корабля на основі
