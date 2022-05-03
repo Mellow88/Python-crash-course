@@ -13,7 +13,7 @@ class Ship():
 
         # NOTE: Завантаження зображення корабля
         image = pygame.image.load('images/space_ship.png')
-        image = pygame.transform.scale(image, (64, 128))
+        # image = pygame.transform.scale(image, (64, 128))
 
         self.image = image
         self.rect = self.image.get_rect()
@@ -24,13 +24,13 @@ class Ship():
 
         # NOTE: Збереження десяткового значення позиції корабля по горизонталі
         self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
         # NOTE: Індикатори руху
         self.moving_right = False
         self.moving_left = False
-
-        # self.moving_up = False
-        # self.moving_down = False
+        self.moving_up = False
+        self.moving_down = False
 
     def center_ship(self):
         """ Створення нового корабля внизу по центру екрану"""
@@ -47,7 +47,14 @@ class Ship():
         if self.moving_left and self.rect.left > 0:
             self.x -= self.settings.ship_speed
 
+        if self.moving_up:
+            self.y -= self.settings.ship_speed
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
+            self.y += self.settings.ship_speed
+
         self.rect.x = self.x
+        self.rect.y = self.y
+
 
     def blitme(self):
         """Намалювати корабель у його поточному розташуванні"""

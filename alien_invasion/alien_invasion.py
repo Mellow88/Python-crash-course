@@ -34,7 +34,9 @@ class AlienInvasion:
 
     def _update_screen(self):
         """Оновлення зображення на екрані"""
-        self.screen.fill(self.settings.bg_color)
+        # self.screen.fill(self.settings.bg_color)
+
+        self.screen.blit(self.settings.background, (0, 0))
 
         self.ship.blitme()
         for bullet in self.bullets.sprites():
@@ -62,6 +64,10 @@ class AlienInvasion:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
+        elif event.key == pygame.K_UP:
+            self.ship.moving_up = True
+        elif event.key == pygame.K_DOWN:
+            self.ship.moving_down = True
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
         elif event.key == pygame.K_ESCAPE:
@@ -73,6 +79,10 @@ class AlienInvasion:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
+        elif event.key == pygame.K_UP:
+            self.ship.moving_up = False
+        elif event.key == pygame.K_DOWN:
+            self.ship.moving_down = False
 
     def _fire_bullet(self):
         """Створити кулю та додати її до групи куль"""
@@ -115,8 +125,8 @@ class AlienInvasion:
         # NOTE: що поміщається на екрані
         ship_height = self.ship.rect.height
         available_space_y = (self.settings.screen_height -
-                            (3 * alien_height) - ship_height)
-        numbers_row = available_space_y // (2 * alien_height)
+                            (2 * alien_height) - ship_height)
+        numbers_row = available_space_y // (3 * alien_height)
 
         for row_num in range(numbers_row):
             for alien_num in range(number_alien_x):

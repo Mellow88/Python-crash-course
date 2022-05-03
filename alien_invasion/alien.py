@@ -14,8 +14,8 @@ class Alien(Sprite):
         self.settings = ai_game.settings
 
         # NOTE: Завантаження зображення корабля
-        image = pygame.image.load('images/alien_ship.bmp')
-        # image = pygame.transform.scale(image, (64, 128))
+        image = pygame.image.load('images/alien_ship.png')
+        image = pygame.transform.scale(image, (46, 42))
 
         self.image = image
         self.rect = self.image.get_rect()
