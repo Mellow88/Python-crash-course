@@ -3,14 +3,16 @@
 # pylint: disable=e1101
 
 import sys
-import pygame
+
 from time import sleep
+import pygame
 
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
 from game_stats import GameStats
+from explosion import Explosion
 
 class AlienInvasion:
     """Загальний клас, що керує ресурсами та поведінкою гри."""
@@ -30,6 +32,7 @@ class AlienInvasion:
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
+        self.exlosions = pygame.sprite.Group()
         self._create_fleet()
 
     def _update_screen(self):
@@ -41,6 +44,7 @@ class AlienInvasion:
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+        self.exlosions.draw(self.screen)
         self.aliens.draw(self.screen)
 
         pygame.display.flip()
@@ -109,6 +113,8 @@ class AlienInvasion:
             self.aliens,
             True,
             True)
+
+        self._alien_hit(collisions)
 
         if not self.aliens:
             self.bullets.empty()
@@ -198,6 +204,14 @@ class AlienInvasion:
         else:
             self.stats.game_active = False
 
+    def _alien_hit(self, hits):
+        """dddd"""
+        for hit in hits:
+            expl = Explosion(hit.rect.center, 'lg')
+            expl.rect.x = hit.rect.x
+            expl.rect.y = hit.rect.y
+            self.exlosions.add(expl)
+
     def run_game(self):
         """Початок головного циклу гри"""
         while True:
@@ -207,6 +221,7 @@ class AlienInvasion:
                 self.ship.update()
                 self._update_bullets()
                 self._update_aliens()
+                self.exlosions.update()
 
             self._update_screen()
 
