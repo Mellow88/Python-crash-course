@@ -7,8 +7,10 @@ class GameStats():
         """Ініціалізація статистики"""
         self.settings = ai_game.settings
         self.reset_stats()
-        self.game_active = True
+
+        # NOTE: Початок гри в не активному стані
+        self.game_active = False
 
     def reset_stats(self):
-        """"""
+        """Скидування статистики"""
         self.ships_left = self.settings.ship_limit
