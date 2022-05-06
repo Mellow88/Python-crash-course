@@ -13,6 +13,7 @@ from bullet import Bullet
 from alien import Alien
 from game_stats import GameStats
 from explosion import Explosion
+from button import Button
 
 class AlienInvasion:
     """Загальний клас, що керує ресурсами та поведінкою гри."""
@@ -35,17 +36,23 @@ class AlienInvasion:
         self.exlosions = pygame.sprite.Group()
         self._create_fleet()
 
+        # NOTE: Створення кнопки "Play"
+        self.play_button = Button(self, 'Play')
+
     def _update_screen(self):
         """Оновлення зображення на екрані"""
         # self.screen.fill(self.settings.bg_color)
-
         self.screen.blit(self.settings.background, (0, 0))
-
         self.ship.blitme()
+
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.exlosions.draw(self.screen)
         self.aliens.draw(self.screen)
+
+        # NOTE: Якщо гра неактивна малюємо кнопку 'Play'
+        if not self.stats.game_active:
+            self.play_button.draw_button()
 
         pygame.display.flip()
 
@@ -61,6 +68,9 @@ class AlienInvasion:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
 
     def _check_keydown_events(self, event):
         """Реагування на натискання клавіш"""
@@ -87,6 +97,11 @@ class AlienInvasion:
             self.ship.moving_up = False
         elif event.key == pygame.K_DOWN:
             self.ship.moving_down = False
+
+    def _check_play_button(self, mouse_pos):
+        """Реагування, коли клавіша не натиснута"""
+        if self.play_button.rect.collidepoint(mouse_pos):
+            self.stats.game_active = True
 
     def _fire_bullet(self):
         """Створити кулю та додати її до групи куль"""
@@ -205,7 +220,7 @@ class AlienInvasion:
             self.stats.game_active = False
 
     def _alien_hit(self, hits):
-        """dddd"""
+        """Створення анімації вибуху космічних прибульців"""
         for hit in hits:
             expl = Explosion(hit.rect.center, 'lg')
             expl.rect.x = hit.rect.x
