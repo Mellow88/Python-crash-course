@@ -1,4 +1,4 @@
-"""Class Explosion"""
+"""Сlass Explosion"""
 
 import pygame
 from pygame.sprite import Sprite
