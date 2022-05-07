@@ -74,9 +74,9 @@ class AlienInvasion:
 
     def _check_keydown_events(self, event):
         """Реагування на натискання клавіш"""
-        if event.key == pygame.K_RIGHT:
+        if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
             self.ship.moving_right = True
-        elif event.key == pygame.K_LEFT:
+        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
             self.ship.moving_left = True
         elif event.key == pygame.K_UP:
             self.ship.moving_up = True
@@ -89,9 +89,9 @@ class AlienInvasion:
 
     def _check_keyup_events(self, event):
         """Реагування, коли клавіша не натиснута"""
-        if event.key == pygame.K_RIGHT:
+        if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
             self.ship.moving_right = False
-        elif event.key == pygame.K_LEFT:
+        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
             self.ship.moving_left = False
         elif event.key == pygame.K_UP:
             self.ship.moving_up = False
@@ -100,8 +100,23 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_pos):
         """Реагування, коли клавіша не натиснута"""
-        if self.play_button.rect.collidepoint(mouse_pos):
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.stats.game_active:
+            # NOTE: Анулювання ігрової статистики
+            self.stats.reset_stats()
             self.stats.game_active = True
+            self.settings.initialize_dynamic_settings()
+
+            # NOTE: Видалення зайвих прибульців та куль
+            self.aliens.empty()
+            self.bullets.empty()
+
+            # NOTE: Створення нового флоту
+            self._create_fleet()
+            self.ship.center_ship()
+
+            # NOTE: Приховування курсора миші
+            pygame.mouse.set_visible(False)
 
     def _fire_bullet(self):
         """Створити кулю та додати її до групи куль"""
@@ -134,6 +149,7 @@ class AlienInvasion:
         if not self.aliens:
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
     def _create_fleet(self):
         """Створення флоту кораблів прибульців"""
@@ -218,6 +234,7 @@ class AlienInvasion:
             sleep(0.5)
         else:
             self.stats.game_active = False
+            pygame.mouse.set_visible(True)
 
     def _alien_hit(self, hits):
         """Створення анімації вибуху космічних прибульців"""
