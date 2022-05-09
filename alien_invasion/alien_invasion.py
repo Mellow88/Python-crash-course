@@ -74,13 +74,13 @@ class AlienInvasion:
 
     def _check_keydown_events(self, event):
         """Реагування на натискання клавіш"""
-        if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+        if event.key in (pygame.K_RIGHT, pygame.K_d):
             self.ship.moving_right = True
-        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
+        elif event.key in (pygame.K_LEFT, pygame.K_a):
             self.ship.moving_left = True
-        elif event.key == pygame.K_UP:
+        elif event.key in (pygame.K_UP, pygame.K_w):
             self.ship.moving_up = True
-        elif event.key == pygame.K_DOWN:
+        elif event.key in (pygame.K_DOWN, pygame.K_s):
             self.ship.moving_down = True
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
@@ -89,13 +89,13 @@ class AlienInvasion:
 
     def _check_keyup_events(self, event):
         """Реагування, коли клавіша не натиснута"""
-        if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+        if event.key in (pygame.K_RIGHT, pygame.K_d):
             self.ship.moving_right = False
-        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
+        elif event.key in (pygame.K_LEFT, pygame.K_a):
             self.ship.moving_left = False
-        elif event.key == pygame.K_UP:
+        elif event.key in (pygame.K_UP, pygame.K_w):
             self.ship.moving_up = False
-        elif event.key == pygame.K_DOWN:
+        elif event.key in (pygame.K_DOWN, pygame.K_s):
             self.ship.moving_down = False
 
     def _check_play_button(self, mouse_pos):
@@ -123,6 +123,10 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+            # SOM DO TIRO
+            som = pygame.mixer.Sound('sounds/laser.wav')
+            som.set_volume(0.3)
+            som.play()
 
     def _update_bullets(self):
         # NOTE: Видалення куль, що зникли
@@ -246,6 +250,10 @@ class AlienInvasion:
 
     def run_game(self):
         """Початок головного циклу гри"""
+        # Налаштування музики
+        pygame.mixer.music.load('sounds/bg_music.mp3')
+        pygame.mixer.music.set_volume(0.4)
+        pygame.mixer.music.play(-1)
         while True:
             self._check_events()
 
