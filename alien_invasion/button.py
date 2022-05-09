@@ -3,7 +3,7 @@
 import pygame.font
 
 class Button:
-
+    """Class button Play"""
     def __init__(self, ai_game, msg):
         """Ініціалізація атрибутів кнопки"""
         self.screen = ai_game.screen
@@ -11,7 +11,7 @@ class Button:
 
         # NOTE: Задати розміри та властивості кнопки
         self.width, self.height = 200, 50
-        self.button_color = (0, 255, 0)
+        self.button_color = (114, 128, 125)
         self.text_color = (255, 255, 255)
         self.font = pygame.font.SysFont(None, 48)
 

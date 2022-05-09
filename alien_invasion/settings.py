@@ -19,6 +19,7 @@ class Settings():
         bg_img = pygame.transform.scale(bg_img, (self.screen_width,
                                                 self.screen_height))
         self.background = bg_img
+        self.font = pygame.font.Font("fonts/main_font.ttf", 65)
 
         # Ship settings
         self.ship_limit = 5
@@ -41,6 +42,9 @@ class Settings():
         self.bullet_speed = 3.0
         self.alien_speed = 1.0
         self.fleet_direction = 1   # напрямок руху 1 / -1
+
+        # NOTE:
+        self.alien_points = 50
 
     def increase_speed(self):
         """Збільшення налаштувань швидкості"""

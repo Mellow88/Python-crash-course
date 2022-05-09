@@ -14,6 +14,7 @@ from alien import Alien
 from game_stats import GameStats
 from explosion import Explosion
 from button import Button
+from scoreboard import ScoreBoard
 
 class AlienInvasion:
     """Загальний клас, що керує ресурсами та поведінкою гри."""
@@ -29,6 +30,7 @@ class AlienInvasion:
 
         # NOTE: Створення екземпляру класу для збереження ігрової статистики
         self.stats = GameStats(self)
+        self.sb = ScoreBoard(self)
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -41,18 +43,24 @@ class AlienInvasion:
 
     def _update_screen(self):
         """Оновлення зображення на екрані"""
-        # self.screen.fill(self.settings.bg_color)
         self.screen.blit(self.settings.background, (0, 0))
-        self.ship.blitme()
 
-        for bullet in self.bullets.sprites():
-            bullet.draw_bullet()
-        self.exlosions.draw(self.screen)
-        self.aliens.draw(self.screen)
+        menu_font = self.settings.font
+        menu_text = menu_font.render("Alien invasion", True, (255, 255, 255))
+        menu_rect = menu_text.get_rect(center=(self.settings.screen_width/2, 100))
+        mouse_pos = pygame.mouse.get_pos()
 
         # NOTE: Якщо гра неактивна малюємо кнопку 'Play'
         if not self.stats.game_active:
+            self.screen.blit(menu_text, menu_rect)
             self.play_button.draw_button()
+        else:
+            for bullet in self.bullets.sprites():
+                bullet.draw_bullet()
+            self.ship.blitme()
+            self.exlosions.draw(self.screen)
+            self.aliens.draw(self.screen)
+            self.sb.show_scope()
 
         pygame.display.flip()
 
@@ -106,6 +114,7 @@ class AlienInvasion:
             self.stats.reset_stats()
             self.stats.game_active = True
             self.settings.initialize_dynamic_settings()
+            self.sb.prep_score()
 
             # NOTE: Видалення зайвих прибульців та куль
             self.aliens.empty()
@@ -148,7 +157,11 @@ class AlienInvasion:
             True,
             True)
 
-        self._alien_hit(collisions)
+        if collisions:
+            for aliens in collisions.values():
+                self.stats.score += self.settings.alien_points * len(aliens)
+            self.sb.prep_score()
+            self._alien_hit(collisions)
 
         if not self.aliens:
             self.bullets.empty()
