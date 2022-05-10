@@ -19,7 +19,7 @@ class Settings():
         bg_img = pygame.transform.scale(bg_img, (self.screen_width,
                                                 self.screen_height))
         self.background = bg_img
-        self.font = pygame.font.Font("fonts/main_font.ttf", 65)
+        self.font = pygame.font.Font("fonts/main_font.ttf", 75)
 
         # Ship settings
         self.ship_limit = 5

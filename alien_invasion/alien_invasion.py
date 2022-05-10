@@ -16,6 +16,7 @@ from explosion import Explosion
 from button import Button
 from scoreboard import ScoreBoard
 
+
 class AlienInvasion:
     """Загальний клас, що керує ресурсами та поведінкою гри."""
 
@@ -39,7 +40,8 @@ class AlienInvasion:
         self._create_fleet()
 
         # NOTE: Створення кнопки "Play"
-        self.play_button = Button(self, 'Play')
+        self.play_button = Button(self, 'Play', (400, 400))
+        self.quit_button = Button(self, 'Quit', (400, 470))
 
     def _update_screen(self):
         """Оновлення зображення на екрані"""
@@ -47,13 +49,21 @@ class AlienInvasion:
 
         menu_font = self.settings.font
         menu_text = menu_font.render("Alien invasion", True, (255, 255, 255))
-        menu_rect = menu_text.get_rect(center=(self.settings.screen_width/2, 100))
+        menu_rect = menu_text.get_rect(center=(self.settings.screen_width/2, 150))
         mouse_pos = pygame.mouse.get_pos()
 
         # NOTE: Якщо гра неактивна малюємо кнопку 'Play'
         if not self.stats.game_active:
             self.screen.blit(menu_text, menu_rect)
+
             self.play_button.draw_button()
+            self.play_button.change_color(mouse_pos)
+            self.play_button.update('Play')
+
+            self.quit_button.draw_button()
+            self.quit_button.change_color(mouse_pos)
+            self.quit_button.update('Quit')
+
         else:
             for bullet in self.bullets.sprites():
                 bullet.draw_bullet()
@@ -78,7 +88,11 @@ class AlienInvasion:
                 self._check_keyup_events(event)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                self._check_play_button(mouse_pos)
+                if self.play_button.checkForInput(mouse_pos):
+                    self._check_play_button(mouse_pos)
+                if self.quit_button.checkForInput(mouse_pos):
+                    pygame.quit()
+                    sys.exit()
 
     def _check_keydown_events(self, event):
         """Реагування на натискання клавіш"""
