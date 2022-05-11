@@ -91,8 +91,7 @@ class AlienInvasion:
                 if self.play_button.checkForInput(mouse_pos):
                     self._check_play_button(mouse_pos)
                 if self.quit_button.checkForInput(mouse_pos):
-                    pygame.quit()
-                    sys.exit()
+                    self._check_play_button(mouse_pos)
 
     def _check_keydown_events(self, event):
         """Реагування на натискання клавіш"""
@@ -176,6 +175,7 @@ class AlienInvasion:
                 self.stats.score += self.settings.alien_points * len(aliens)
             self.sb.prep_score()
             self._alien_hit(collisions)
+            self.sb.check_high_score()
 
         if not self.aliens:
             self.bullets.empty()
@@ -279,7 +279,7 @@ class AlienInvasion:
         """Початок головного циклу гри"""
         # Налаштування музики
         pygame.mixer.music.load('sounds/bg_music.mp3')
-        pygame.mixer.music.set_volume(0.4)
+        pygame.mixer.music.set_volume(0.8)
         pygame.mixer.music.play(-1)
         while True:
             self._check_events()
