@@ -2,10 +2,14 @@
 
 import pygame.font
 
+from pygame.sprite import Group
+from ship import Ship
+
 class ScoreBoard(object):
     """Class for update Scope."""
 
     def __init__(self, ai_game):
+        self.ai_game = ai_game
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
         self.settings = ai_game.settings
@@ -18,6 +22,7 @@ class ScoreBoard(object):
         # NOTE: Підготовка зображення з початковим рахунком
         self.prep_score()
         self.prep_level()
+        self.prep_ships()
         self.prep_high_score()
 
     def prep_score(self):
@@ -43,6 +48,19 @@ class ScoreBoard(object):
         self.level_rect.left = self.screen_rect.left + 20
         self.level_rect.top = self.score_rect.bottom + 10
 
+    def prep_ships(self):
+        """Show how many ships are left."""
+        self.ships = Group()
+        for ship_number in range(self.stats.ships_left + 1):
+            ship = Ship(self.ai_game)
+            image = pygame.image.load('images/space_ship.png')
+            ship.image = pygame.transform.scale(image, (56, 37))
+            ship.rect.x = self.ai_game.settings.screen_width -  ship_number * ship.rect.width/2
+            ship.rect.y = 10
+            self.ships.add(ship)
+
+
+
     def prep_high_score(self):
         """Перетворення рахунку на зображення"""
         high_score = round(self.stats.high_score, -1)
@@ -55,15 +73,16 @@ class ScoreBoard(object):
         self.high_score_rect.centerx = self.screen_rect.centerx
         self.high_score_rect.top = 20#self.high_score_rect.top
 
-    def show_scope(self):
+    def show_score(self):
         """Показати рахунок на екрані."""
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
+        self.ships.draw(self.screen)
 
     def check_high_score(self):
-        """"""
-        print(self.stats.load_stats_info())
+        """Перевірка набраного рахунку"""
+        # print(self.stats.load_stats_info())
         if self.stats.score > self.stats.high_score:
             self.stats.high_score = self.stats.score
             if self.stats.ships_left == 0:

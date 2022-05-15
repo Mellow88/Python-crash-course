@@ -5,8 +5,10 @@
 import sys
 
 from time import sleep
-import pygame
+
 import random
+import pygame
+
 
 from settings import Settings
 from ship import Ship
@@ -71,7 +73,7 @@ class AlienInvasion:
             self.ship.blitme()
             self.exlosions.draw(self.screen)
             self.aliens.draw(self.screen)
-            self.sb.show_scope()
+            self.sb.show_score()
 
         pygame.display.flip()
 
@@ -132,6 +134,7 @@ class AlienInvasion:
             self.settings.initialize_dynamic_settings()
             self.sb.prep_score()
             self.sb.prep_level()
+            self.sb.prep_ships()
 
             # NOTE: Видалення зайвих прибульців та куль
             self.aliens.empty()
@@ -265,6 +268,7 @@ class AlienInvasion:
         if self.stats.ships_left > 0:
             # NOTE: Зменшуємо кількість кораблів
             self.stats.ships_left -= 1
+            self.sb.prep_ships()
 
             # NOTE: Прибираємо залишок куль та прибульців
             self.aliens.empty()
