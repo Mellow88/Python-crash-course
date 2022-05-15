@@ -6,6 +6,7 @@ import sys
 
 from time import sleep
 import pygame
+import random
 
 from settings import Settings
 from ship import Ship
@@ -91,7 +92,9 @@ class AlienInvasion:
                 if self.play_button.checkForInput(mouse_pos):
                     self._check_play_button(mouse_pos)
                 if self.quit_button.checkForInput(mouse_pos):
-                    self._check_play_button(mouse_pos)
+                    pygame.quit()
+                    sys.exit()
+                    # self._check_play_button(mouse_pos)
 
     def _check_keydown_events(self, event):
         """Реагування на натискання клавіш"""
@@ -128,6 +131,7 @@ class AlienInvasion:
             self.stats.game_active = True
             self.settings.initialize_dynamic_settings()
             self.sb.prep_score()
+            self.sb.prep_level()
 
             # NOTE: Видалення зайвих прибульців та куль
             self.aliens.empty()
@@ -144,6 +148,11 @@ class AlienInvasion:
         """Створити кулю та додати її до групи куль"""
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
+
+            new_bullet.color = (random.randint(0, 255),
+                                random.randint(0, 255),
+                                random.randint(0, 255))
+
             self.bullets.add(new_bullet)
             # SOM DO TIRO
             som = pygame.mixer.Sound('sounds/laser.wav')
@@ -181,6 +190,9 @@ class AlienInvasion:
             self.bullets.empty()
             self._create_fleet()
             self.settings.increase_speed()
+
+            self.stats.level += 1
+            self.sb.prep_level()
 
     def _create_fleet(self):
         """Створення флоту кораблів прибульців"""
