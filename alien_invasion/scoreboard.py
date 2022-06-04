@@ -5,6 +5,8 @@ import pygame.font
 from pygame.sprite import Group
 from ship import Ship
 
+import os
+
 class ScoreBoard(object):
     """Class for update Scope."""
 
@@ -53,7 +55,12 @@ class ScoreBoard(object):
         self.ships = Group()
         for ship_number in range(self.stats.ships_left + 1):
             ship = Ship(self.ai_game)
-            image = pygame.image.load('images/space_ship.png')
+            # image = pygame.image.load('images/space_ship.png')
+
+            resource_path = os.path.dirname(__file__)
+            image_path = os.path.join(resource_path, 'images')
+            image = pygame.image.load(os.path.join(image_path, 'space_ship.png'))
+
             ship.image = pygame.transform.scale(image, (56, 37))
             ship.rect.x = self.ai_game.settings.screen_width -  ship_number * ship.rect.width/2
             ship.rect.y = 10

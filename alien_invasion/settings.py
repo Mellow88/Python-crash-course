@@ -1,6 +1,7 @@
 """Settings for game"""
 
 import pygame
+import os
 
 class Settings():
     """Class for game settings."""
@@ -16,11 +17,25 @@ class Settings():
         self.screen_width = 1200
         self.screen_height = 800
         # self.bg_color = (230, 230, 230)
-        bg_img = pygame.image.load('images/background.png')
+
+
+        resource_path = os.path.dirname(__file__)
+        image_path = os.path.join(resource_path, 'images')
+
+        bg_img = pygame.image.load(os.path.join(image_path, 'background.png'))
+        # bg_img = pygame.image.load('images/background.png')
+
+        font_path = os.path.join(resource_path, 'fonts')
+        font_logo = os.path.join(font_path, 'main_font.ttf')
+
+
         bg_img = pygame.transform.scale(bg_img, (self.screen_width,
                                                 self.screen_height))
         self.background = bg_img
-        self.font = pygame.font.Font("fonts/main_font.ttf", 75)
+        # self.font = pygame.font.Font("fonts/main_font.ttf", 75)
+
+        # self.font = pygame.font.SysFont(None, 75)
+        self.font = pygame.font.Font(font_logo, 75)
 
         # Ship settings
         self.ship_limit = 5
@@ -36,6 +51,9 @@ class Settings():
 
         # Explosion animation settings
         self.explosion_size = 'lg'
+
+    def new_method(self, font):
+        pygame.font.Font(font, 75)
 
     def initialize_dynamic_settings(self):
         """Ініціалізація змінних налаштувань"""
