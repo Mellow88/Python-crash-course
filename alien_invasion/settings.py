@@ -26,6 +26,8 @@ class Settings():
         # self.font = pygame.font.Font("fonts/main_font.ttf", 75)
         self.font = pygame.font.Font(os.path.abspath('alien_invasion/fonts/main_font.ttf'), 75)
 
+        dd = 0
+        
         # Ship settings
         self.ship_limit = 5
 
