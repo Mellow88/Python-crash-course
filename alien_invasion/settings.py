@@ -18,24 +18,13 @@ class Settings():
         self.screen_height = 800
         # self.bg_color = (230, 230, 230)
 
-
-        resource_path = os.path.dirname(__file__)
-        image_path = os.path.join(resource_path, 'images')
-
-        bg_img = pygame.image.load(os.path.join(image_path, 'background.png'))
-        # bg_img = pygame.image.load('images/background.png')
-
-        font_path = os.path.join(resource_path, 'fonts')
-        font_logo = os.path.join(font_path, 'main_font.ttf')
-
-
+        bg_img = pygame.image.load(os.path.abspath('alien_invasion/images/background.png'))
         bg_img = pygame.transform.scale(bg_img, (self.screen_width,
                                                 self.screen_height))
         self.background = bg_img
+        
         # self.font = pygame.font.Font("fonts/main_font.ttf", 75)
-
-        # self.font = pygame.font.SysFont(None, 75)
-        self.font = pygame.font.Font(font_logo, 75)
+        self.font = pygame.font.Font(os.path.abspath('alien_invasion/fonts/main_font.ttf'), 75)
 
         # Ship settings
         self.ship_limit = 5

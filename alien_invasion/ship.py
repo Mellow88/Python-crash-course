@@ -16,12 +16,8 @@ class Ship(Sprite):
 
         # NOTE: Завантаження зображення корабля
         #image = pygame.image.load('images/space_ship.png')
+        image = pygame.image.load(os.path.abspath('alien_invasion/images/space_ship.png'))
         # image = pygame.transform.scale(image, (64, 128))
-
-        resource_path = os.path.dirname(__file__)
-        image_path = os.path.join(resource_path, 'images')
-
-        image = pygame.image.load(os.path.join(image_path, 'space_ship.png'))
 
         self.image = image
         self.rect = self.image.get_rect()
