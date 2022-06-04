@@ -19,7 +19,6 @@ from explosion import Explosion
 from button import Button
 from scoreboard import ScoreBoard
 
-
 class AlienInvasion:
     """Загальний клас, що керує ресурсами та поведінкою гри."""
 
