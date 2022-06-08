@@ -157,12 +157,12 @@ class AlienInvasion:
                                 random.randint(0, 255))
 
             self.bullets.add(new_bullet)
-            
+
             resource_path = os.path.dirname(__file__)
             sound_path = os.path.join(resource_path, 'sounds')
             music_laser = os.path.join(sound_path, 'laser.wav')
             som = pygame.mixer.Sound(music_laser)
-            
+
             # som = pygame.mixer.Sound('sounds/laser.wav')
             som.set_volume(0.3)
             som.play()
