@@ -6,7 +6,7 @@ from pygame.sprite import Sprite
 import os
 
 class Explosion(Sprite):
-    """fhdfdghdfg"""
+    """Ініціалізація класу expolsion"""
     def __init__(self, center, size):
         Sprite.__init__(self)
         explosion_image = self._get_explosin_animation()
