@@ -3,9 +3,10 @@
 import pygame
 from pygame.sprite import Sprite
 
+import os
 
 class Explosion(Sprite):
-    """fhdfdghdfg"""
+    """Ініціалізація класу expolsion"""
     def __init__(self, center, size):
         Sprite.__init__(self)
         explosion_image = self._get_explosin_animation()
@@ -34,7 +35,11 @@ class Explosion(Sprite):
     def _get_explosin_animation(self):
         """Отримуємо словник з картинками expolsion"""
 
-        img_dir = 'images/explosions'
+        resource_path = os.path.dirname(__file__)
+        image_path = os.path.join(resource_path, 'images')
+        img_dir = os.path.join(image_path, 'explosions')
+
+        # img_dir = 'images/explosions'
         explosion_anim = {}
         explosion_anim['lg'] = []
         explosion_anim['sm'] = []

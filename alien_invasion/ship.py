@@ -2,6 +2,7 @@
 
 import pygame
 from pygame.sprite import Sprite
+import os
 
 class Ship(Sprite):
     """Клас для керування космічним кораблем."""
@@ -14,7 +15,8 @@ class Ship(Sprite):
         self.settings = ai_game.settings
 
         # NOTE: Завантаження зображення корабля
-        image = pygame.image.load('images/space_ship.png')
+        #image = pygame.image.load('images/space_ship.png')
+        image = pygame.image.load(os.path.abspath('alien_invasion/images/space_ship.png'))
         # image = pygame.transform.scale(image, (64, 128))
 
         self.image = image

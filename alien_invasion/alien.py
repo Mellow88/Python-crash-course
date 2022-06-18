@@ -3,6 +3,8 @@
 import pygame
 from pygame.sprite import Sprite
 
+import os
+
 
 class Alien(Sprite):
     """Клас для керування космічним прибулцем."""
@@ -14,7 +16,12 @@ class Alien(Sprite):
         self.settings = ai_game.settings
 
         # NOTE: Завантаження зображення корабля
-        image = pygame.image.load('images/alien_ship.png')
+        # image = pygame.image.load('images/alien_ship.png')
+
+        resource_path = os.path.dirname(__file__)
+        image_path = os.path.join(resource_path, 'images')
+        image = pygame.image.load(os.path.join(image_path, 'alien_ship.png'))
+
         image = pygame.transform.scale(image, (46, 42))
 
         self.image = image

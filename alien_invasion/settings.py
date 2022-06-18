@@ -1,6 +1,7 @@
 """Settings for game"""
 
 import pygame
+import os
 
 class Settings():
     """Class for game settings."""
@@ -16,12 +17,17 @@ class Settings():
         self.screen_width = 1200
         self.screen_height = 800
         # self.bg_color = (230, 230, 230)
-        bg_img = pygame.image.load('images/background.png')
+
+        bg_img = pygame.image.load(os.path.abspath('alien_invasion/images/background.png'))
         bg_img = pygame.transform.scale(bg_img, (self.screen_width,
                                                 self.screen_height))
         self.background = bg_img
-        self.font = pygame.font.Font("fonts/main_font.ttf", 75)
+        
+        # self.font = pygame.font.Font("fonts/main_font.ttf", 75)
+        self.font = pygame.font.Font(os.path.abspath('alien_invasion/fonts/main_font.ttf'), 75)
 
+        dd = 0
+        
         # Ship settings
         self.ship_limit = 5
 
@@ -36,6 +42,9 @@ class Settings():
 
         # Explosion animation settings
         self.explosion_size = 'lg'
+
+    def new_method(self, font):
+        pygame.font.Font(font, 75)
 
     def initialize_dynamic_settings(self):
         """Ініціалізація змінних налаштувань"""

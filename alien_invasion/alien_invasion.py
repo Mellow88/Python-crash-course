@@ -2,6 +2,7 @@
 
 # pylint: disable=e1101
 
+import os
 import sys
 
 from time import sleep
@@ -156,8 +157,13 @@ class AlienInvasion:
                                 random.randint(0, 255))
 
             self.bullets.add(new_bullet)
-            # SOM DO TIRO
-            som = pygame.mixer.Sound('sounds/laser.wav')
+
+            resource_path = os.path.dirname(__file__)
+            sound_path = os.path.join(resource_path, 'sounds')
+            music_laser = os.path.join(sound_path, 'laser.wav')
+            som = pygame.mixer.Sound(music_laser)
+
+            # som = pygame.mixer.Sound('sounds/laser.wav')
             som.set_volume(0.3)
             som.play()
 
@@ -293,7 +299,13 @@ class AlienInvasion:
     def run_game(self):
         """Початок головного циклу гри"""
         # Налаштування музики
-        pygame.mixer.music.load('sounds/bg_music.mp3')
+        resource_path = os.path.dirname(__file__)
+        sound_path = os.path.join(resource_path, 'sounds')
+
+        music_fon = os.path.join(sound_path, 'bg_music.mp3')
+        pygame.mixer.music.load(music_fon)
+
+        # pygame.mixer.music.load('sounds/bg_music.mp3')
         pygame.mixer.music.set_volume(0.8)
         pygame.mixer.music.play(-1)
         while True:
